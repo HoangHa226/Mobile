@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Text, StyleSheet, View, SafeAreaView, Image, TextInput, TouchableOpacity, FlatList, Dimensions, onPress } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
+
 
 const listTab = [
     {
@@ -18,7 +18,7 @@ const listTab = [
 const data = [
     {
         id: 1,
-        img: require('../img/drink1.jpg'),
+        uriimg: 'https://lh3.googleusercontent.com/u/0/drive-viewer/AFDK6gPPKZBLsroeB-oaY007wT6KxLyQePg7LFCfsQEIR99HrB9sgLUsbEP0AgrfwJGTgDX4FytJEjgBt-umKFpYxkTtL7rUrQ=w1366-h657',
         name: 'Filter Coffee',
         price: '$7.00',
         add: 'Add to Cart',
@@ -26,7 +26,7 @@ const data = [
     },
     {
         id: 2,
-        img: require('../img/drink2.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/guy-basabose-FzdEbrA3Qj0-unsplash.jpg?nc=1',
         name: 'Mocha',
         price: '$10.00',
         add: 'Add to Cart',
@@ -34,7 +34,7 @@ const data = [
     },
     {
         id: 3,
-        img: require('../img/drink3.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/kris-gerhard-N2Lxs1FAzSE-unsplash.jpg?nc=1',
         name: 'Espresso',
         price: '$9.00',
         add: 'Add to Cart',
@@ -42,7 +42,7 @@ const data = [
     },
     {
         id: 4,
-        img: require('../img/drink4.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/shayna-douglas-84orFfYwuuU-unsplash.jpg?nc=1',
         name: 'Flat White',
         price: '$8.00',
         add: 'Add to Cart',
@@ -50,15 +50,15 @@ const data = [
     },
     {
         id: 5,
-        img: require('../img/drink5.jpg'),
-        name: 'Muffin',
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/anubhav-arora-RFLDagtOsMM-unsplash.jpg?nc=1',
+        name: 'Cappuccino',
         price: '$11.00',
         add: 'Add to Cart',
         status: 'Food & Drink'
     },
     {
         id: 6,
-        img: require('../img/drink6.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/one-zen-SKoZa7rcLlU-unsplash.jpg?nc=1',
         name: 'Americano',
         price: '$9.00',
         add: 'Add to Cart',
@@ -66,15 +66,15 @@ const data = [
     },
     {
         id: 7,
-        img: require('../img/drink7.jpg'),
-        name: 'Flat White',
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/emily-richards-QD4g6u1-cS4-unsplash.jpg?nc=1',
+        name: 'Mocha',
         price: '$13.00',
         add: 'Add to Cart',
         status: 'Food & Drink'
     },
     {
         id: 8,
-        img: require('../img/drink8.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/tina-guina-s8_7AqkzCWY-unsplash.jpg?nc=1',
         name: 'Cheesecake',
         price: '$14.00',
         add: 'Add to Cart',
@@ -82,7 +82,7 @@ const data = [
     },
     {
         id: 9,
-        img: require('../img/drink9.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/yulia-khlebnikova-vJyNLAQxefg-unsplash.jpg?nc=1',
         name: 'Macchiato',
         price: '$10.00',
         add: 'Add to Cart',
@@ -90,7 +90,7 @@ const data = [
     },
     {
         id: 10,
-        img: require('../img/coffee1.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/daniel-jerico-rEYaMYYVePw-unsplash.jpg?nc=1',
         name: 'Costa Rican Coffee',
         price: '$18.00',
         add: 'Add to Cart',
@@ -98,7 +98,7 @@ const data = [
     },
     {
         id: 11,
-        img: require('../img/coffee2.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/phil-desforges-fjrl9YBYEL0-unsplash.jpg?nc=1',
         name: 'Colombian Coffee',
         price: '$21.00',
         add: 'Add to Cart',
@@ -106,7 +106,7 @@ const data = [
     },
     {
         id: 12,
-        img: require('../img/coffee3.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/tina-guina-obV_LM0KjxY-unsplash.jpg?nc=1',
         name: 'El Salvador Coffee',
         price: '$23.00',
         add: 'Add to Cart',
@@ -114,15 +114,15 @@ const data = [
     },
     {
         id: 13,
-        img: require('../img/coffee4.jpg'),
-        name: 'El Salvador Coffee',
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/battlecreek-coffee-roasters-mY4hAwxNA_0-unsplash.jpg?nc=1',
+        name: 'Ethiopian Coffee',
         price: '$14.00',
         add: 'Add to Cart',
         status: 'Coffee Bean'
     },
     {
         id: 14,
-        img: require('../img/coffee5.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/mockup-graphics-m7ijvnNGaV0-unsplash.jpg?nc=1',
         name: 'Brazilian Coffee',
         price: '$20.00',
         add: 'Add to Cart',
@@ -130,7 +130,7 @@ const data = [
     },
     {
         id: 15,
-        img: require('../img/coffee6.jpg'),
+        uriimg: 'https://www.jotform.com/uploads/mehmetkarakasli/form_files/petri-haanpaa-dV6BexRcEcY-unsplash.jpg?nc=1',
         name: 'Colombian Supreme Coffee',
         price: '$25.00',
         add: 'Add to Cart',
@@ -139,9 +139,14 @@ const data = [
 ]
 const renderItem = ({ item, index }) => {
     return (
-        <View key={index} style={styles.product}>
+        <View key={index} style={[styles.product, (item % 2 !== 0 ? { marginRight: 5 } : { marginLeft: 5 })]}>
             <TouchableOpacity style={styles.wrapImg}>
-                <Image source={item.img} style={styles.imgProduct} />
+                <Image
+                    
+                    source={{                     
+                        uri: item.uriimg,
+                      }}
+                    style={styles.imgProduct} />
                 <TouchableOpacity
                     onPress={onPress}
                     style={styles.btnHeart}
@@ -157,7 +162,7 @@ const renderItem = ({ item, index }) => {
         </View>
     )
 }
-export default function Home() {
+export default function Home({ navigation }) {
     const [status, setStatus] = useState('All')
     const [dataList, setDataList] = useState(data)
     const setStatusFilter = status => {
@@ -179,9 +184,7 @@ export default function Home() {
                         />
                         <Text style={styles.nameShop}>Bấc coffee</Text>
                     </View>
-                    <TouchableOpacity style={styles.iconNotification}>
-                        <EvilIcons name="bell" size={27} color="black" />
-                    </TouchableOpacity>
+
                 </View>
                 <View style={styles.formSearch}>
                     <EvilIcons style={styles.iconSearch} name="search" size={24} color="black" />
@@ -209,20 +212,6 @@ export default function Home() {
 
                 />
             </View>
-            <View style={styles.footer}>
-                <TouchableOpacity>
-                    <AntDesign name="home" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Ionicons name="ios-cart-outline" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <AntDesign name="hearto" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <AntDesign name="user" size={24} color="black" />
-                </TouchableOpacity>
-            </View>
         </SafeAreaView>
     );
 }
@@ -236,9 +225,7 @@ const styles = StyleSheet.create({
     header: {
         flex: 2.5,
         justifyContent: 'space-around',
-        // backgroundColor: 'rgb(250, 230, 209)',
         paddingHorizontal: 20,
-        // paddingVertical: 20
     },
     top: {
         flexDirection: 'row',
@@ -285,7 +272,6 @@ const styles = StyleSheet.create({
     },
     btntab: {
         width: '33%',
-        // paddingHorizontal: 10,
         alignItems: 'center',
     },
     textTab: {
@@ -317,7 +303,8 @@ const styles = StyleSheet.create({
         width: '49%',
         borderWidth: 1,
         borderColor: '#3333',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 5
     },
     wrapImg: {
         width: '100%',
