@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { Text, StyleSheet, View, SafeAreaView, Image, TextInput, TouchableOpacity, FlatList, Dimensions, onPress } from 'react-native'
+import { Text, StyleSheet, View, SafeAreaView, Image, TextInput, TouchableOpacity, FlatList, Dimensions, onPress, Pressable } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 
 const listTab = [
@@ -137,32 +140,96 @@ const data = [
         status: 'Coffee Bean'
     },
 ]
-const renderItem = ({ item, index }) => {
-    return (
-        <View key={index} style={[styles.product, (item % 2 !== 0 ? { marginRight: 5 } : { marginLeft: 5 })]}>
-            <TouchableOpacity style={styles.wrapImg}>
-                <Image
-                    
-                    source={{                     
-                        uri: item.uriimg,
-                      }}
-                    style={styles.imgProduct} />
-                <TouchableOpacity
-                    onPress={onPress}
-                    style={styles.btnHeart}
-                >
-                    <AntDesign style={styles.iconHeart} name="heart" size={19} color="#fff" />
-                </TouchableOpacity>
-            </TouchableOpacity>
-            <Text style={[styles.nameProduct, styles.txt]} numberOfLines={1}>{item.name}</Text>
-            <Text style={[styles.priceProduct, styles.txt]}>{item.price}</Text>
-            <TouchableOpacity style={styles.btnAdd}>
-                <Text style={[styles.txtAdd]}>{item.add}</Text>
-            </TouchableOpacity>
-        </View>
-    )
-}
+
+
 export default function Home({ navigation }) {
+
+
+    const [cart, setcart] = useState([]);
+
+    const renderItem = ({ item, index }) => {
+
+
+        // const handleClick = (item) => {
+        //     cart.push(item);
+        //     console.log(cart);
+        // };
+
+
+
+        return (
+
+            <View key={index} style={[styles.product, (item % 2 !== 0 ? { marginRight: 5 } : { marginLeft: 5 })]}>
+                <TouchableOpacity style={styles.wrapImg}>
+                    <Image
+
+                        source={{
+                            uri: item.uriimg,
+                        }}
+                        style={styles.imgProduct} />
+                    <TouchableOpacity
+                        onPress={onPress}
+                        style={styles.btnHeart}
+                    >
+                        <AntDesign style={styles.iconHeart} name="heart" size={19} color="#fff" />
+                    </TouchableOpacity>
+                </TouchableOpacity>
+                <Text style={[styles.nameProduct, styles.txt]} numberOfLines={1}>{item.name}</Text>
+                <Text style={[styles.priceProduct, styles.txt]}>{item.price}</Text>
+
+                {/* <TouchableOpacity style={styles.btnAdd}
+                    // onClick={() => handleClick(item)}
+                    // onPress={() => handleClick([...cart, item])}
+                    onPress={() => handleClick(item)}
+
+                >
+                    <Text style={[styles.txtAdd]}>Add to Cart</Text>
+                </TouchableOpacity> */}
+
+                {cart.includes(item) ? (
+
+                    <TouchableOpacity
+
+                        onPress={() => setcart(cart.filter((x) => x.id !== item.id))}
+                        // onPress ={() => this.onClickAddCart(item)}
+
+                        style={styles.btnAdd}
+                    >
+                        <Text style={[styles.txtAdd]}>Remove form Cart</Text>
+                        <View style={{ width: 10 }} />
+
+
+                    </TouchableOpacity  >
+
+                ) : (
+                    <TouchableOpacity
+
+                        onPress={() => setcart([...cart, item])}
+                        // onPress ={() => this.onClickAddCart(item)}
+
+                        style={styles.btnAdd}
+                    >
+                        <Text style={[styles.txtAdd]}>{item.add}</Text>
+                        <View style={{ width: 10 }} />
+
+                    </TouchableOpacity  >
+                )}
+
+
+            </View>
+
+        )
+
+    }
+
+
+    console.log("bao gom", cart);
+    cart.push();
+    // console.log(cart);
+
+
+
+
     const [status, setStatus] = useState('All')
     const [dataList, setDataList] = useState(data)
     const setStatusFilter = status => {
@@ -212,9 +279,13 @@ export default function Home({ navigation }) {
 
                 />
             </View>
+
         </SafeAreaView>
+
     );
+
 }
+
 
 const styles = StyleSheet.create({
     container: {

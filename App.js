@@ -10,6 +10,8 @@ import Cart from './Screens/Cart';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -35,10 +37,9 @@ function MyTabs() {
           <Ionicons style={styles.iconTab} name="ios-cart-outline" size={26} color="black" />
 
       }} />
-      <Tab.Screen style={styles.iconHeart} name="Favourite" component={Favourite} options={{
+      <Tab.Screen style={styles.iconHeart} name="Location" component={Favourite} options={{
         tabBarIcon: () =>
-          <AntDesign style={styles.iconTab} name="hearto" size={22} color="black" />
-
+          <Feather name="map-pin" size={24} color="black" />
       }} />
       <Tab.Screen name="Notification" component={Notification} options={{
         tabBarIcon: () =>
@@ -48,11 +49,16 @@ function MyTabs() {
   );
 }
 
+
+
+
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeTabs" component={MyTabs} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
