@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, StyleSheet, View, SafeAreaView, Image, TextInput, TouchableOpacity, FlatList, Dimensions, onPress } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
+// import { Component } from 'react/cjs/react.production.min';
 
 
 const listTab = [
@@ -142,17 +143,11 @@ const renderItem = ({ item, index }) => {
         <View key={index} style={[styles.product, (item % 2 !== 0 ? { marginRight: 5 } : { marginLeft: 5 })]}>
             <TouchableOpacity style={styles.wrapImg}>
                 <Image
-                    
-                    source={{                     
+
+                    source={{
                         uri: item.uriimg,
-                      }}
+                    }}
                     style={styles.imgProduct} />
-                <TouchableOpacity
-                    onPress={onPress}
-                    style={styles.btnHeart}
-                >
-                    <AntDesign style={styles.iconHeart} name="heart" size={19} color="#fff" />
-                </TouchableOpacity>
             </TouchableOpacity>
             <Text style={[styles.nameProduct, styles.txt]} numberOfLines={1}>{item.name}</Text>
             <Text style={[styles.priceProduct, styles.txt]}>{item.price}</Text>
@@ -164,7 +159,26 @@ const renderItem = ({ item, index }) => {
 }
 export default function Home({ navigation }) {
     const [status, setStatus] = useState('All')
+
     const [dataList, setDataList] = useState(data)
+
+    const [searchText, setSearchText] = useState('')
+    useEffect(() => {
+        if (searchText === '') {
+            setDataList(data)
+        } else {
+            setDataList(
+                data.filter(item => {
+                    if (item.name.indexOf(searchText) > -1) {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+            )
+        }
+    }, [searchText])
+
     const setStatusFilter = status => {
         if (status !== 'All') {
             setDataList([...data.filter(e => e.status === status)])
@@ -174,6 +188,7 @@ export default function Home({ navigation }) {
         }
         setStatus(status)
     }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -188,7 +203,11 @@ export default function Home({ navigation }) {
                 </View>
                 <View style={styles.formSearch}>
                     <EvilIcons style={styles.iconSearch} name="search" size={24} color="black" />
-                    <TextInput style={styles.input} placeholder='Nhập tên cần tìm' />
+                    <TextInput style={styles.input}
+                        placeholder='Nhập tên cần tìm'
+                        value={setSearchText}
+                        onChangeText={(t) => setSearchText(t)}
+                    />
                 </View>
                 <View style={styles.listTab}>
                     {
@@ -314,11 +333,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'cover'
-    },
-    iconHeart: {
-        position: 'absolute',
-        bottom: 120,
-        right: 8
     },
     nameProduct: {
         marginTop: 10,
