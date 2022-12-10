@@ -11,7 +11,9 @@ import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-
+import { render } from 'react-dom';
+import { CartProvider } from './Screens/CartContext';
+import Detail from './Screens/Detail';
 
 
 const Tab = createBottomTabNavigator();
@@ -55,11 +57,15 @@ function MyTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="HomeTabs" component={MyTabs} />
 
-      </Stack.Navigator>
+    <NavigationContainer>
+      <CartProvider>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="HomeTabs" component={MyTabs} />
+          <Stack.Screen name="Detail" component={Detail} />
+        </Stack.Navigator>
+      </CartProvider>
+
     </NavigationContainer>
   );
 }

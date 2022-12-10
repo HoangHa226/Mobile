@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Text, StyleSheet, View, SafeAreaView, Image, TextInput, TouchableOpacity, FlatList, Dimensions, onPress, Pressable } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
+import reactDom from 'react-dom';
+import { cartContext } from './CartContext';
 
 const listTab = [
     {
@@ -145,22 +145,21 @@ const data = [
 export default function Home({ navigation }) {
 
 
-    const [cart, setcart] = useState([]);
+    const [cart, setcart] = useContext(cartContext);
 
     const renderItem = ({ item, index }) => {
-
-
         // const handleClick = (item) => {
         //     cart.push(item);
         //     console.log(cart);
         // };
-
-
-
         return (
-
+            
             <View key={index} style={[styles.product, (item % 2 !== 0 ? { marginRight: 5 } : { marginLeft: 5 })]}>
-                <TouchableOpacity style={styles.wrapImg}>
+                <TouchableOpacity style={styles.wrapImg}
+                    onPress={() => navigation.navigate('Detail',{
+                        itemId: item.id
+                      })}
+                >
                     <Image
 
                         source={{
@@ -190,7 +189,8 @@ export default function Home({ navigation }) {
 
                     <TouchableOpacity
 
-                        onPress={() => setcart(cart.filter((x) => x.id !== item.id))}
+
+                        onPress={() =>  setcart(cart.filter((x) => x.id !== item.id))}
                         // onPress ={() => this.onClickAddCart(item)}
 
                         style={styles.btnAdd}
@@ -223,9 +223,10 @@ export default function Home({ navigation }) {
     }
 
 
-    console.log("bao gom", cart);
+    // console.log("bao gom", cart);
     cart.push();
-    // console.log(cart);
+    console.log(cart);
+    
 
 
 
@@ -285,6 +286,7 @@ export default function Home({ navigation }) {
     );
 
 }
+
 
 
 const styles = StyleSheet.create({

@@ -44,9 +44,9 @@ export default function App() {
             console.log("Drag End", e.nativeEvent.coordinate);
           }}
         >
-          <Callout>
+          {/* <Callout>
             <Text>BẤC Coffee</Text>
-          </Callout>
+          </Callout> */}
         </Marker>
 
         <Circle

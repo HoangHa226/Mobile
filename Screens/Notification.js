@@ -1,14 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native'
+import React, { Component } from 'react'
 
-
-export default function Notification ({navigation}) {
-  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <Text
-    onPress={()=> navigation.navigate('Home')}
-    >đây là trang thông báo</Text>
-  </View>
+export default class Notification extends Component {
+  render() {
+    return (
+      <View>
+        <Text>Notification</Text>
+      </View>
+    )
+  }
 }
-
 
 const styles = StyleSheet.create({})
